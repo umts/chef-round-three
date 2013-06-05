@@ -6,12 +6,17 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+include_recipe 'rsnapshot::client'
 
 round_three_secrets = Chef::EncryptedDataBagItem.load("apps", "round-three")
 
 directory node['round-three']['db-dump-dir'] do
   owner 'root'
   mode '0700'
+end
+
+unless node.normal['rsnapshot']['client']['paths'].index(node['round-three']['db-dump-dir'])
+  node.normal['rsnapshot']['client']['paths'] << node['round-three']['db-dump-dir']
 end
 
 # Need a .pgpass file in order for pg_dump to log-in.  This shouldn't be too big
