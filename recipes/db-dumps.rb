@@ -30,7 +30,7 @@ file '/root/.pgpass' do
 end
 
 # This mirors the logic in the cron.d file that rsnapshot::server uses
-server = search(:node, "role:#{node['rsnapshot']['server_role']}").first
+server = search(:node, "role:#{node['rsnapshot']['server_role']} AND chef_environment:#{node.chef_environment}").first
 retain_hourly = server['rsnapshot']['server']['retain']['hourly'].to_i
 
 retain_hourly.times do |i|
