@@ -12,3 +12,8 @@ users_manage "developers" do
 end
 
 node['authorization']['sudo']['groups'] << 'developers'
+
+group node['round-three']['group'] do
+  append true
+  members search(:users, "groups:developers AND NOT action:remove").map {|sa| sa.id}
+end

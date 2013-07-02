@@ -6,10 +6,11 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+require_recipe "postgresql::ruby"
 require_recipe "postgresql::server"
 
-require 'rubygems'
-Gem.clear_paths
+#require 'rubygems'
+#Gem.clear_paths
 require 'pg'
 
 round_three_secrets = Chef::EncryptedDataBagItem.load("apps", "round-three")

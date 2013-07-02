@@ -17,10 +17,15 @@ rbenv_gem "passenger" do
   version node['passenger']['version']
 end
 
+group node['round-three']['group'] do
+  append true
+  members search(:users, "groups:sysadmin AND NOT action:remove").map {|sa| sa.id}
+end
+
 application "round-three" do
   path  node['round-three']['dir']
   owner node['apache']['user']
-  group node['apache']['group']
+  group node['round-three']['group']
 
   repository "git@github.com:umts/round-three.git"
   deploy_key round_three_secrets['deploy_key']
