@@ -10,6 +10,7 @@ require_recipe "git"
 require_recipe "xml"
 
 round_three_secrets = Chef::EncryptedDataBagItem.load("apps", "round-three")
+rev = "HEAD"
 
 # Install the gem here, so the "passenger-install-apache-module" gets rehashed
 # It will actually be installed by the sub-resource below
@@ -28,6 +29,7 @@ application "round-three" do
   group node['round-three']['group']
 
   repository "git@github.com:umts/round-three.git"
+  revision rev
   deploy_key round_three_secrets['deploy_key']
 
   purge_before_symlink %w{log tmp/pids public/system}
@@ -58,5 +60,17 @@ application "round-three" do
       command "#{node['rbenv']['root_path']}/shims/bundle exec whenever --update-crontab round-three"
       action :run
     end
+
+    #sure would be nice if the application resource would allow this directly.
+    execute "fix-rt-permissions" do
+      command "chmod -R g=u #{node['round-three']['dir']}"
+      action :run
+    end
+
+    execute "create-revision-file" do
+      cwd "#{node['round-three']['dir']}/current/"
+      command "git rev-parse #{rev} > REVISION"
+    end
   end
 end
+
