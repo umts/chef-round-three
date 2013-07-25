@@ -12,6 +12,7 @@ require_recipe "xml"
 round_three_secrets = Chef::EncryptedDataBagItem.load("apps", "round-three")
 rev = "HEAD"
 
+rbenv_gem "bundler"
 # Install the gem here, so the "passenger-install-apache-module" gets rehashed
 # It will actually be installed by the sub-resource below
 rbenv_gem "passenger" do
@@ -32,12 +33,14 @@ application "round-three" do
   revision rev
   deploy_key round_three_secrets['deploy_key']
 
+  rollback_on_error false
+
   purge_before_symlink %w{log tmp/pids public/system}
   create_dirs_before_symlink %w{tmp public config}
   symlinks({"system" => "public/system", "pids" => "tmp/pids", "log" => "log"})
 
   rails do
-    gems ['bundler']
+    bundler true
     bundler_deployment false
     database do
       adapter 'postgresql'
