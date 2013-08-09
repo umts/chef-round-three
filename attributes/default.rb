@@ -9,3 +9,5 @@ default['round-three']['faye-port'] = 9292
 default['round-three']['group'] = 'deploy'
 
 default['round-three']['db-dump-dir'] = '/var/db-dump'
+
+default['round-three']['redirects'] = {'st-wiki' => 'http://st-wiki.umasstransit.org'}

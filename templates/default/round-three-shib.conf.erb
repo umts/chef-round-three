@@ -1,4 +1,4 @@
-<Location />
+<LocationMatch ^<%=@params[:exempted_paths]%>/(.*) >
   AuthType shibboleth
   ShibRequestSetting requireSession 1
   require valid-user

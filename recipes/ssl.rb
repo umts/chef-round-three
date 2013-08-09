@@ -9,11 +9,11 @@
 include_recipe "ssl"
 include_recipe "apache2::mod_ssl"
 
-domain = "transit-demo.admin.umass.edu"
+domain = "umasstransit.org"
 
-ssl_certificate "transit-demo" do
+ssl_certificate "umasstransit" do
   name        domain
-  ca          "InCommon"
+  ca          "GoDaddy"
   key         "/etc/ssl/#{domain}.key"
   certificate "/etc/ssl/#{domain}.cert"
   days        365
@@ -37,12 +37,13 @@ web_app "round-three-ssl" do
   template        "round-three-ssl.conf.erb"
   docroot         "#{node['round-three']['dir']}/current/public"
   server_name     "round-three.#{node['domain']}"
-  server_aliases  ["demo.umasstransit.org", "transit-demo.admin.umass.edu"]
+  server_aliases  ["umasstransit.org", "transit-demo.admin.umass.edu"]
   log_dir         node['apache']['log_dir']
   rails_env       node.chef_environment =~ /_default/ ? "production" : node.chef_environment
   ssl_key         "/etc/ssl/#{domain}.key"
   ssl_certificate "/etc/ssl/#{domain}.cert"
   ssl_chain       "/etc/ssl/in-common-intermediate.cert"
+  redirects       node['round-three']['redirects']
 end
 
 apache_site "round-three.conf" do

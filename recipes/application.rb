@@ -52,7 +52,7 @@ application "round-three" do
   end
 
   passenger_apache2 do
-    server_aliases ["demo.umasstransit.org", "transit-demo.admin.umass.edu"]
+    server_aliases ["umasstransit.org", "transit-demo.admin.umass.edu"]
   end
 
   #migrate true

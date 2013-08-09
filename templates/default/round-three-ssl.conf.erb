@@ -5,6 +5,9 @@
 
   SSLEngine Off
   RewriteEngine On
+  <% @params[:redirects].each do |k,v| %>
+    RewriteRule ^/<%=k%>.* <%=v%> [R,L]
+  <% end %>
   RewriteCond %{HTTPS} off
   RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
 </VirtualHost>
