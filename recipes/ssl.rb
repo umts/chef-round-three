@@ -16,7 +16,7 @@ ssl_certificate "umasstransit" do
   ca          "GoDaddy"
   key         "/etc/ssl/#{domain}.key"
   certificate "/etc/ssl/#{domain}.cert"
-  days        365
+  days        5*365
 end
 
 cookbook_file "/etc/ssl/in-common-intermediate.cert" do
