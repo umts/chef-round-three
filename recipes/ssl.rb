@@ -19,14 +19,14 @@ ssl_certificate "umasstransit" do
   days        5*365
 end
 
-cookbook_file "/etc/ssl/in-common-intermediate.cert" do
+cookbook_file "/etc/ssl/go-daddy-intermediate.cert" do
   mode '0644'
   notifies :restart, 'service[apache2]'
 end
 
 execute "create_ssl_bundle" do
   cert = "/etc/ssl/#{domain}.cert"
-  interm = "/etc/ssl/in-common-intermediate.cert"
+  interm = "/etc/ssl/go-daddy-intermediate.cert"
   combo = "/etc/ssl/#{domain}_combined.cert"
 
   command "cat #{cert} #{interm} > #{combo}"

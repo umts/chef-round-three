@@ -40,8 +40,8 @@ template node['round-three']['dir']+"/shared/faye.yml" do
     :port => 9292,
     :environment => node.chef_environment,
     :rackup => "private_pub.ru",
-    :ssl_key => "/etc/ssl/transit-demo.admin.umass.edu.key",
-    :ssl_cert => "/etc/ssl/transit-demo.admin.umass.edu_combined.cert"
+    :ssl_key => "/etc/ssl/umasstransit.org.key",
+    :ssl_cert => "/etc/ssl/umasstransit.org.cert"
   )
   notifies :restart, "service[faye]"
 end
