@@ -42,7 +42,7 @@ web_app "round-three-ssl" do
   rails_env       node.chef_environment =~ /_default/ ? "production" : node.chef_environment
   ssl_key         "/etc/ssl/#{domain}.key"
   ssl_certificate "/etc/ssl/#{domain}.cert"
-  ssl_chain       "/etc/ssl/in-common-intermediate.cert"
+  ssl_chain       "/etc/ssl/go-daddy-intermediate.cert"
   redirects       node['round-three']['redirects']
 end
 
