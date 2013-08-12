@@ -36,8 +36,8 @@ end
 web_app "round-three-ssl" do
   template        "round-three-ssl.conf.erb"
   docroot         "#{node['round-three']['dir']}/current/public"
-  server_name     "round-three.#{node['domain']}"
-  server_aliases  ["umasstransit.org", "transit-demo.admin.umass.edu"]
+  server_name     domain
+  server_aliases  ["www.umasstransit.org", "transit-demo.admin.umass.edu"]
   log_dir         node['apache']['log_dir']
   rails_env       node.chef_environment =~ /_default/ ? "production" : node.chef_environment
   ssl_key         "/etc/ssl/#{domain}.key"

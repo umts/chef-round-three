@@ -8,6 +8,10 @@
   <% @params[:redirects].each do |k,v| %>
     RewriteRule ^/<%=k%>.* <%=v%> [R,L]
   <% end %>
+
+  RewriteCond %{HTTP_HOST} !^<%= @params[:server_name] %>$
+  RewriteRule ^.*$ http://<%= @params[:server_name] %>%{REQUEST_URI} [R=301,L]
+
   RewriteCond %{HTTPS} off
   RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
 </VirtualHost>
@@ -21,6 +25,10 @@
   ServerName <%= @params[:server_name] %>
   ServerAlias <% @params[:server_aliases].each do |a| %><%= "#{a}" %> <% end %>
   DocumentRoot <%= @params[:docroot] %>
+
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} !^<%= @params[:server_name] %>$
+  RewriteRule ^.*$ https://<%= @params[:server_name] %>%{REQUEST_URI} [R=301,L]
 
   RailsBaseURI <%= @params[:docroot] %>
   RailsEnv <%= @params[:rails_env] %>
