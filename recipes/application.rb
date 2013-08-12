@@ -37,7 +37,12 @@ application "round-three" do
 
   purge_before_symlink %w{log tmp/pids public/system}
   create_dirs_before_symlink %w{tmp public config}
-  symlinks({"system" => "public/system", "pids" => "tmp/pids", "log" => "log"})
+  symlinks( { "system" => "public/system",
+              "pids" => "tmp/pids",
+              "log" => "log",
+              "user_pictures" => "public/user_pictures",
+              "documents" => "public/documents"
+  })
 
   rails do
     bundler true
