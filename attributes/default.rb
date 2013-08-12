@@ -10,4 +10,7 @@ default['round-three']['group'] = 'deploy'
 
 default['round-three']['db-dump-dir'] = '/var/db-dump'
 
-default['round-three']['redirects'] = {'st-wiki' => 'http://st-wiki.umasstransit.org'}
+default['round-three']['strict-host-redirect'] = true
+
+default['round-three']['redirects'] = {'st-wiki' => 'http://st-wiki.umasstransit.org',
+                                       'wiki' => 'https://transit-app1.admin.umass.edu'}

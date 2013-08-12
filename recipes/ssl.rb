@@ -44,6 +44,7 @@ web_app "round-three-ssl" do
   ssl_certificate "/etc/ssl/#{domain}.cert"
   ssl_chain       "/etc/ssl/go-daddy-intermediate.cert"
   redirects       node['round-three']['redirects']
+  strict          node['round-three']['strict-host-redirect']
 end
 
 apache_site "round-three.conf" do

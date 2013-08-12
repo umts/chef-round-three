@@ -6,11 +6,13 @@
   SSLEngine Off
   RewriteEngine On
   <% @params[:redirects].each do |k,v| %>
-    RewriteRule ^/<%=k%>.* <%=v%> [R,L]
+    RewriteRule ^/<%=k%>(.*) <%=v%>$1 [R,L]
   <% end %>
 
-  RewriteCond %{HTTP_HOST} !^<%= @params[:server_name] %>$
-  RewriteRule ^.*$ http://<%= @params[:server_name] %>%{REQUEST_URI} [R=301,L]
+  <% if @params[:strict] %>
+    RewriteCond %{HTTP_HOST} !^<%= @params[:server_name] %>$
+    RewriteRule ^.*$ http://<%= @params[:server_name] %>%{REQUEST_URI} [R=301,L]
+  <% end %>
 
   RewriteCond %{HTTPS} off
   RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
@@ -27,8 +29,14 @@
   DocumentRoot <%= @params[:docroot] %>
 
   RewriteEngine On
-  RewriteCond %{HTTP_HOST} !^<%= @params[:server_name] %>$
-  RewriteRule ^.*$ https://<%= @params[:server_name] %>%{REQUEST_URI} [R=301,L]
+  <% @params[:redirects].each do |k,v| %>
+    RewriteRule ^/<%=k%>(.*) <%=v%>$1 [R,L]
+  <% end %>
+
+  <% if @params[:strict] %>
+    RewriteCond %{HTTP_HOST} !^<%= @params[:server_name] %>$
+    RewriteRule ^.*$ https://<%= @params[:server_name] %>%{REQUEST_URI} [R=301,L]
+  <% end %>
 
   RailsBaseURI <%= @params[:docroot] %>
   RailsEnv <%= @params[:rails_env] %>
