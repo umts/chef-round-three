@@ -35,7 +35,7 @@ application "round-three" do
 
   rollback_on_error false
 
-  purge_before_symlink %w{log tmp/pids public/system}
+  purge_before_symlink %w{log tmp/pids public/system public/user_pictures public/documents}
   create_dirs_before_symlink %w{tmp public config}
   symlinks( { "system" => "public/system",
               "pids" => "tmp/pids",
