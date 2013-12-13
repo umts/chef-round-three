@@ -6,6 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+require_recipe "apache2"
 require_recipe "git"
 require_recipe "xml"
 
