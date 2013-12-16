@@ -14,3 +14,5 @@ default['round-three']['strict-host-redirect'] = true
 
 default['round-three']['redirects'] = {'st-wiki' => 'http://st-wiki.umasstransit.org',
                                        'wiki' => 'https://transit-app1.admin.umass.edu/wiki'}
+
+default['round-three']['exempted-paths'] = %w{exports}

@@ -36,13 +36,14 @@ application "round-three" do
 
   rollback_on_error false
 
-  purge_before_symlink %w{log tmp/pids public/system public/user_pictures public/documents}
+  purge_before_symlink %w{log tmp/pids public/system public/user_pictures public/documents public/exports}
   create_dirs_before_symlink %w{tmp public config}
   symlinks( { "system" => "public/system",
               "pids" => "tmp/pids",
               "log" => "log",
               "user_pictures" => "public/user_pictures",
-              "documents" => "public/documents"
+              "documents" => "public/documents",
+              "exports" => "public/exports"
   })
 
   rails do

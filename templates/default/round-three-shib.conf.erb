@@ -1,5 +1,13 @@
-<LocationMatch ^<%=@params[:exempted_paths]%>/(.*) >
+<Location / >
   AuthType shibboleth
   ShibRequestSetting requireSession 1
-  require valid-user
-</LocationMatch>
+  Require valid-user
+</Location>
+<% @params[:exempted_paths].each do |path| %>
+<Location /<%= path %> >
+  Satisfy Any
+  Allow From All
+  AuthType None
+  Require all granted
+</Location>
+<% end %>
