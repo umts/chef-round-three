@@ -63,6 +63,11 @@ application "round-three" do
   end
 
   #migrate true
+  before_symlink do
+    %w{system user_pictures documents exports}.each do |dir|
+      directory "#{node['round-three']['dir']}/shared/#{dir}"
+    end
+  end
 
   after_restart do
     execute "whenever" do
