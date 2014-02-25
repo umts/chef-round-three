@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+# ^syntax detection
+
+site 'http://community.opscode.com/api/v1'
+
+cookbook 'round-three',
+         path: '.'
+
+# cookbook 'round-three-test',
+#          path: 'test/cookbooks/round-three-test'
