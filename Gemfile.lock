@@ -46,6 +46,7 @@ GEM
     json (1.8.1)
     kitchen-vagrant (0.14.0)
       test-kitchen (~> 1.0)
+    knife-solo_data_bag (0.4.0)
     librarian (0.1.2)
       highline
       thor (~> 0.15)
@@ -122,6 +123,7 @@ PLATFORMS
 DEPENDENCIES
   foodcritic (~> 3.0)
   kitchen-vagrant
+  knife-solo_data_bag
   librarian-chef
   rake
   rubocop (~> 0.16)
