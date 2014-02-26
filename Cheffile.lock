@@ -1,0 +1,127 @@
+SITE
+  remote: http://community.opscode.com/api/v1
+  specs:
+    apache2 (1.9.0)
+      iptables (>= 0.0.0)
+      logrotate (>= 0.0.0)
+      pacman (>= 0.0.0)
+    application (4.1.4)
+    application_ruby (3.0.2)
+      apache2 (>= 0.0.0)
+      application (~> 4.0)
+      logrotate (~> 1.0)
+      passenger_apache2 (>= 0.0.0)
+      runit (~> 1.0)
+      unicorn (>= 0.0.0)
+    apt (2.3.8)
+    aws (2.1.0)
+    build-essential (1.4.2)
+    chef_handler (1.1.5)
+    cron (1.3.0)
+    database (2.0.0)
+      aws (>= 0.0.0)
+      mysql (>= 1.3.0)
+      postgresql (>= 1.0.0)
+      xfs (>= 0.0.0)
+    dmg (2.2.0)
+    git (2.10.0)
+      build-essential (>= 0.0.0)
+      dmg (>= 0.0.0)
+      runit (>= 1.0.0)
+      windows (>= 0.0.0)
+      yum (~> 3.0)
+      yum-epel (>= 0.0.0)
+    homebrew (1.5.4)
+    iptables (0.12.0)
+    logrotate (1.5.0)
+    mysql (4.1.1)
+      build-essential (~> 1.4)
+      homebrew (>= 0.0.0)
+      openssl (~> 1.1)
+      windows (>= 0.0.0)
+    ohai (2.0.0)
+    openssh (1.3.2)
+      iptables (>= 0.0.0)
+    openssl (1.1.0)
+    pacman (1.1.1)
+    passenger_apache2 (2.2.0)
+      apache2 (>= 1.0.4)
+      build-essential (>= 0.0.0)
+    postgresql (3.3.4)
+      apt (>= 0.0.0)
+      build-essential (>= 0.0.0)
+      openssl (>= 0.0.0)
+    rbenv (1.7.1)
+      apt (>= 0.0.0)
+      build-essential (>= 0.0.0)
+      git (>= 0.0.0)
+      ohai (>= 1.1)
+    rsync (0.8.4)
+    runit (1.5.8)
+      build-essential (>= 0.0.0)
+      yum (~> 3.0)
+      yum-epel (>= 0.0.0)
+    sudo (2.5.0)
+    unicorn (1.3.0)
+    users (1.7.0)
+    vt-gpg (1.0.0)
+    windows (1.30.0)
+      chef_handler (>= 0.0.0)
+    xfs (1.1.0)
+    xml (1.2.0)
+      build-essential (>= 0.0.0)
+    yum (3.1.2)
+    yum-epel (0.3.4)
+      yum (~> 3.0)
+
+GIT
+  remote: https://github.com/VendaTech/chef-cookbook-ssl.git
+  ref: master
+  sha: 63cc6d8257c70bfd3618b2d38852bc5c7e254b99
+  specs:
+    ssl (1.1.0)
+      vt-gpg (>= 0.0.0)
+
+GIT
+  remote: https://github.com/umts/chef-shibboleth.git
+  ref: master
+  sha: 066311224af724a7f9f26483d4ad0b7dccc7a445
+  specs:
+    shibboleth (0.0.2)
+      apache2 (>= 0.0.0)
+
+GIT
+  remote: https://github.com/umts/rsnapshot.git
+  ref: master
+  sha: eca014c61951be31855404dfdc7b7a07e50eb49c
+  specs:
+    rsnapshot (0.0.1)
+      cron (>= 0.0.0)
+      openssh (>= 0.0.0)
+      rsync (>= 0.0.0)
+      sudo (>= 0.0.0)
+
+PATH
+  remote: .
+  specs:
+    round-three (0.1.0)
+      apache2 (>= 0.0.0)
+      application (>= 0.0.0)
+      application_ruby (>= 0.0.0)
+      database (>= 0.0.0)
+      git (>= 0.0.0)
+      postgresql (>= 0.0.0)
+      rbenv (>= 0.0.0)
+      rsnapshot (>= 0.0.0)
+      shibboleth (>= 0.0.0)
+      ssl (>= 0.0.0)
+      sudo (>= 0.0.0)
+      users (>= 0.0.0)
+      xml (>= 0.0.0)
+
+DEPENDENCIES
+  round-three (>= 0)
+  rsnapshot (>= 0)
+  shibboleth (>= 0)
+  ssl (>= 0)
+
