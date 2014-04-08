@@ -9,14 +9,24 @@
 require_recipe "apache2"
 require_recipe "git"
 require_recipe "xml"
+require_recipe "postgresql::ruby"
+require_recipe "rbenv::default"
+require_recipe "rbenv::ruby_build"
 
 round_three_secrets = Chef::EncryptedDataBagItem.load("apps", "round-three")
-rev = "HEAD"
 
-rbenv_gem "bundler"
+rbenv_ruby node['round-three']['ruby_version'] do
+  global true
+end
+
+rbenv_gem "bundler" do
+  ruby_version node['round-three']['ruby_version']
+end
+
 # Install the gem here, so the "passenger-install-apache-module" gets rehashed
 # It will actually be installed by the sub-resource below
 rbenv_gem "passenger" do
+  ruby_version node['round-three']['ruby_version']
   version node['passenger']['version']
 end
 
@@ -30,9 +40,12 @@ application "round-three" do
   owner node['apache']['user']
   group node['round-three']['group']
 
-  repository "git@github.com:umts/round-three.git"
-  revision rev
-  deploy_key round_three_secrets['deploy_key']
+  repository node['round-three']['repository']
+  revision node['round-three']['revision']
+
+  # The deploy key should be secret. It's available as an attribute so
+  # test-kitchen can use your ssh key
+  deploy_key (node['round-three']['deploy_key'] || round_three_secrets['deploy_key'])
 
   rollback_on_error false
 
@@ -84,7 +97,7 @@ application "round-three" do
 
     execute "create-revision-file" do
       cwd "#{node['round-three']['dir']}/current/"
-      command "git rev-parse #{rev} > REVISION"
+      command "git rev-parse #{node['round-three']['revision']} > REVISION"
     end
   end
 end
