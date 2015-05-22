@@ -1,11 +1,10 @@
-maintainer       "UMass Transit Service"
-maintainer_email "transit-mis@admin.umass.edu"
-license          "All rights reserved"
-description      "Installs/Configures round-three"
-long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "0.1.0"
-name             "round-three"
+name             'round-three'
+maintainer       'UMass Transit Service'
+maintainer_email 'transit-it@admin.umass.edu'
+license          'mit'
+description      'Installs/Configures round-three'
+long_description 'Installs/Configures round-three'
+version          '1.0.0'
 
-%w{ apache2 application application_ruby git database postgresql rbenv rsnapshot shibboleth ssl users sudo xml }.each do |cb|
-  depends cb
-end
+depends 'ruby-install', '~> 0.2.0'
+depends 'apache2', '~> 3.0.1'

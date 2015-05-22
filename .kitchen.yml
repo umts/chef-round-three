@@ -1,37 +1,22 @@
-<%
-require 'net/ssh'
-@deploy_key = Net::SSH::KeyFactory.
-              load_private_key(File.join(ENV['HOME'], '.ssh', 'id_rsa')).
-              to_s.gsub("\n", "\\n")
-%>
 ---
 driver:
   name: vagrant
 
 provisioner:
   name: chef_zero
-  data_bags_path: "test/integration/default/data_bags"
-  roles_path: "test/integration/default/roles"
-  encrypted_data_bag_secret_key_path: "test/integration/default/encrypted_data_bag_secret"
 
 platforms:
-  - name: ubuntu-12.04
-  - name: centos-6.4
+  - name: ubuntu-14.04
+  - name: centos-6.6
 
 suites:
   - name: application
-    driver_config:
-      customize:
-        memory: 512
     run_list:
-      - role[sysadmins]
+      - recipe[sudo::default]
       - recipe[round-three::application]
     attributes:
-      round-three:
-        deploy_key: "<%= @deploy_key %>"
-  - name: database
-    run_list:
-      - recipe[round-three::database]
-  - name: miscelaneous
-    run_list:
-      - recipe[round-three::default]
+      authorization:
+        sudo:
+          users:
+            - vagrant
+          passwordless: true

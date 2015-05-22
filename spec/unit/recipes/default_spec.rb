@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: round-three
-# Recipe:: application
+# Spec:: default
 #
 # The MIT License (MIT)
 #
@@ -24,17 +24,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-include_recipe 'ruby-install'
-include_recipe 'apache2'
+require 'spec_helper'
 
-ruby_install_ruby node['round-three']['ruby-version'] do
-  install_dir '/usr/local'
-  gems [{ name: 'bundler' }]
-end
+describe 'round-three::default' do
+  context 'When all attributes are default, on an unspecified platform' do
+    let(:chef_run) do
+      runner = ChefSpec::ServerRunner.new
+      runner.converge(described_recipe)
+    end
 
-directory node['round-three']['directory'] do
-  action :create
-  owner node['apache']['user']
-  group node['round-three']['group']
-  mode '2775'
+    it 'converges successfully' do
+      chef_run # This should not raise an error
+    end
+  end
 end
