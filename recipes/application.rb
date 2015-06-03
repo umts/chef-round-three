@@ -25,6 +25,7 @@
 # THE SOFTWARE.
 
 include_recipe 'ruby-install'
+include_recipe 'passenger'
 include_recipe 'apache2'
 
 ruby_install_ruby "ruby #{node['round-three']['ruby-version']}" do
