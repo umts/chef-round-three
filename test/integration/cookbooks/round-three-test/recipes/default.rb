@@ -1,21 +1,21 @@
 #
-# Cookbook Name:: round-three
-# Recipe:: application
+# Cookbook Name:: round-three-test
+# Recipe:: default
 #
 # The MIT License (MIT)
-#
+# 
 # Copyright (c) 2015 UMass Transit Service
-#
+# 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-#
+# 
 # The above copyright notice and this permission notice shall be included in
 # all copies or substantial portions of the Software.
-#
+# 
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -24,22 +24,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-include_recipe 'ruby-install'
-include_recipe 'passenger'
-include_recipe 'apache2'
+include_recipe 'sudo'
 
-ruby_install_ruby "ruby #{node['round-three']['ruby-version']}" do
-  install_dir '/usr/local'
-  gems [{ name: 'bundler' }]
-end
-
-group node['round-three']['group'] do
+group 'rt-group-for-test' do
+  group_name node['round-three']['group']
   action :create
-end
-
-directory node['round-three']['directory'] do
-  action :create
-  owner node['apache']['user']
-  group node['round-three']['group']
-  mode '2775'
+  members 'vagrant'
+  append true
 end

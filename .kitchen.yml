@@ -12,11 +12,5 @@ platforms:
 suites:
   - name: application
     run_list:
-      - recipe[sudo::default]
+      - recipe[round-three-test::default]
       - recipe[round-three::application]
-    attributes:
-      authorization:
-        sudo:
-          users:
-            - vagrant
-          passwordless: true
