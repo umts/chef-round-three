@@ -27,7 +27,7 @@
 include_recipe 'ruby-install'
 include_recipe 'apache2'
 
-ruby_install_ruby node['round-three']['ruby-version'] do
+ruby_install_ruby "ruby #{node['round-three']['ruby-version']}" do
   install_dir '/usr/local'
   gems [{ name: 'bundler' }]
 end
