@@ -11,7 +11,7 @@ users_manage "developers" do
   action [ :remove, :create ]
 end
 
-node['authorization']['sudo']['groups'] << 'developers'
+node.normal['authorization']['sudo']['groups'] = node['authorization']['sudo']['groups'] + ['developers']
 
 group node['round-three']['group'] do
   append true
